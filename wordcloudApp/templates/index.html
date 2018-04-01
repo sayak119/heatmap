@@ -1,0 +1,45 @@
+<!DOCTYPE html>  
+<html> 
+<head> 
+<meta charset="UTF-8"> 
+<title>Word Cloud</title>
+</head>
+<body> 
+<script src="../static/js/jquery-3.3.1.min.js"></script>
+<script type="text/javascript" >
+	$(function(){
+		$('#btnCrt').click(function(){
+			
+			$.ajax({
+				url: '/create',
+				data: $('form').serialize(),
+				type: 'POST',
+				success: function(response){
+					console.log(response);
+				},
+				error: function(error){
+					console.log(error);
+				}
+			});
+		});
+	});
+</script>
+<script type="text/javascript">
+	function changeimage() {
+		var x = document.getElementsByTagName("img").item(0);
+		var v = x.getAttribute("src");
+		var nam = document.getElementById("inputName");
+		var val = nam.value;
+		var str = "static/images/"+val+".png";
+		x.setAttribute("src", str);
+	}
+</script>
+    <div id="content">Twitter Word Cloud</div> 
+    <form class="form-signin">
+        <label for="inputName" class="sr-only">Enter Key Word</label>
+        <input type="name" name="inputName" id="inputName" class="form-control" placeholder="KeyWord" required autofocus>         
+        <button id="btnCrt" class="btn btn-lg btn-primary btn-block" type="button" onclick="setTimeout(changeimage, 1000)">Create Cloud</button>
+      </form>
+      <img src="{{ user_image }}" alt="User Image">
+</body>
+</html>
